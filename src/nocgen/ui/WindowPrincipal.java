@@ -82,7 +82,8 @@ public class WindowPrincipal extends javax.swing.JFrame
         regionBasedSelector = new JCheckBox();
         // max regions objects
         maxRegionsPanel = new JPanel();
-        spinnerModelMaxRegions = new SpinnerNumberModel(0,0,spinnerUpperBound,1);
+//        spinnerModelMaxRegions = new SpinnerNumberModel(0,0,spinnerUpperBound,1);
+        spinnerModelMaxRegions = new SpinnerNumberModel(100,100,100,0);
         spinnerMaxRegions = new JSpinner(spinnerModelMaxRegions);              
         // menu object
         mainMenu = new JMenuBar();
@@ -147,11 +148,12 @@ public class WindowPrincipal extends javax.swing.JFrame
         });
         
         regionBasedSelector.setText("Use region based routing");
-        regionBasedSelector.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                regionBasedSelectorActionPerformed(evt);
-            }
-        });
+//        regionBasedSelector.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                regionBasedSelectorActionPerformed(evt);
+//            }
+//        });
+        regionBasedSelector.setSelected(true);
         
         GroupLayout algorithmPanelLayout = new GroupLayout(algorithmPanel);
         algorithmPanel.setLayout(algorithmPanelLayout);
@@ -362,8 +364,8 @@ public class WindowPrincipal extends javax.swing.JFrame
     	generateButton.setEnabled(true);
     	spinnerX.setEnabled(true);
     	spinnerY.setEnabled(true);
-        algorithmComboBox.setEnabled(true);
-        regionBasedSelector.setEnabled(true);
+//        algorithmComboBox.setEnabled(true);
+//        regionBasedSelector.setEnabled(true);
     }
 
     /**
