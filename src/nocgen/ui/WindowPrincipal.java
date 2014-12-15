@@ -71,8 +71,10 @@ public class WindowPrincipal extends javax.swing.JFrame
         nocGenLabel = new JLabel();
         // dimension objects
         dimensionsPanel = new JPanel();
-        spinnerModelX = new SpinnerNumberModel(0,0,spinnerUpperBound,1);
-        spinnerModelY = new SpinnerNumberModel(0,0,spinnerUpperBound,1);
+//        spinnerModelX = new SpinnerNumberModel(0,0,spinnerUpperBound,1);
+//        spinnerModelY = new SpinnerNumberModel(0,0,spinnerUpperBound,1);
+        spinnerModelX = new SpinnerNumberModel(2,2,spinnerUpperBound,1);
+        spinnerModelY = new SpinnerNumberModel(2,2,spinnerUpperBound,1);
         spinnerX = new JSpinner(spinnerModelX);
         spinnerY = new JSpinner(spinnerModelY);
         versusLabel = new JLabel();
