@@ -184,7 +184,7 @@ begin
 					-- se nao deu erro, esta tudo normal. Posso armazenar o flit no buffer e incrementar o ponteiro
 					if (statusHamming /= ED) then
 						retransmission_o <= '0';
-
+						-- modifica o ultimo flit do pacote para armazenar o numero de retransmissoes
 						if (count = pkt_size+1 and pkt_size > 0) then
 							total_count_retx := data_in;
 							total_count_retx := total_count_retx + count_retx;
@@ -530,7 +530,7 @@ begin
 								-- Pode ser entendido como o numero de flits no payload usados para processar o pacote de controle
 								if c_createmessage = '0' then
 									if(CONV_INTEGER(buf(CONV_INTEGER(first))) = c_WR_ROUT_TAB) then
-										varControlCom := 4;
+										varControlCom := 5;
 									elsif(CONV_INTEGER(buf(CONV_INTEGER(first))) = c_WR_FAULT_TAB) then
 										varControlCom := 9; -- code + tabela
 									elsif(CONV_INTEGER(buf(CONV_INTEGER(first))) = c_RD_FAULT_TAB_STEP1) then
@@ -555,7 +555,7 @@ begin
 					elsif (codigoControl = c_WR_ROUT_TAB and retransmission_o='0') then
 							
 								-- terminou de processar todos os flits do pacote de controle
-								if indexFlitCtrl = 4 then
+								if indexFlitCtrl = 5 then
 									counter_flit <= counter_flit - 1;
 									if counter_flit = x"1" then
 										EA <= S_END;
@@ -566,7 +566,7 @@ begin
 									buffCtrl(indexFlitCtrl-1) <= buf(CONV_INTEGER(first)); -- vai armazenando os dados lido do pacote de controle (o pacote tera uma linha da tabela de roteamento)
 	
 									if (first /= last) then
-										if indexFlitCtrl /= 3 then
+										if indexFlitCtrl /= 4 then
 											counter_flit <= counter_flit - 1;
 										end if;
 										indexFlitCtrl := indexFlitCtrl + 1;

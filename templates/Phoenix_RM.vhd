@@ -44,6 +44,7 @@ architecture behavior of routingMechanism is
 	signal OP : STD_LOGIC_VECTOR(4 downto 0);
 	type arrayIP is array ((NREG-1) downto 0) of std_logic_vector(4 downto 0);
 	signal IP : arrayIP;
+	signal IP_lido: STD_LOGIC_VECTOR(4 downto 0);
 	signal i : integer := 0;
 
 	signal RAM: memory := TAB(ADDRESS_TO_NUMBER_NOIA(address));
@@ -82,15 +83,18 @@ begin
 	end process;
 
 	func <= operacao(7 downto 0);
-	VertInf <= buffCtrl(0)(7 downto 0);
-	VertSup <= buffCtrl(1)(7 downto 0);
-	OP <= buffCtrl(2)(4 downto 0);
+	
+	IP_lido <= buffCtrl(0)(4 downto 0);
+	VertInf <= buffCtrl(1)(7 downto 0);
+	VertSup <= buffCtrl(2)(7 downto 0);
+	OP <= buffCtrl(3)(4 downto 0);
 
 	process(ceT,ctrl)
 	begin
 		if ctrl = '0' then
 			i <= 0;
 		elsif ctrl = '1' and ceT = '1' and func = x"01" then
+			RAM(i)(25 downto 21) <= IP_lido(4 downto 0);
 			RAM(i)(20 downto 13) <= VertInf(7 downto 0);
 			RAM(i)(12 downto 5) <= VertSup(7 downto 0);
 			RAM(i)(4 downto 0) <= OP(4 downto 0);
