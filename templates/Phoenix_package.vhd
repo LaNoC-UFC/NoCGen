@@ -77,7 +77,7 @@ package PhoenixPackage is
 	subtype reg26 is std_logic_vector(25 downto 0);
 	--constant MEMORY_SIZE : integer := 4;
 	--type memory is array (0 to MEMORY_SIZE-1) of reg21;
-	type buffControl is array(0 to 2) of std_logic_vector((TAM_FLIT-1) downto 0);
+	type buffControl is array(0 to 3) of std_logic_vector((TAM_FLIT-1) downto 0);
 	type RouterControl is (invalidRegion, validRegion, faultPort, portError);
 	type ArrayRouterControl is array(NPORT downto 0) of RouterControl;
 

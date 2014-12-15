@@ -40,9 +40,13 @@ public class TopFile implements FilesPaths {
 		new RouterCCFile(sourceFilePath,templatePath);
 		new NoCFile(sourceFilePath, templatePath);
 		new TopNoCFile(sourceFilePath, templatePath);
-		new TableFile(sourceFilePath, templatePath);
-		new FileCopy(FilesNames.crossbarFileName, sourceFilePath, templatePath);
+		//new TableFile(sourceFilePath, templatePath);
 		new FileCopy(FilesNames.faultDetectionMechanism, sourceFilePath, templatePath);
+		new FileCopy(FilesNames.crossbarFileName, sourceFilePath, templatePath);
+		new FileCopy(FilesNames.decoderFileName, sourceFilePath, templatePath);
+		new FileCopy(FilesNames.encoderFileName, sourceFilePath, templatePath);
+		new FileCopy(FilesNames.fppmFileName, sourceFilePath, templatePath);
+		new FileCopy(FilesNames.hammingFileName, sourceFilePath, templatePath);
 		
 		if(rbrOption.equals("true"))
 			new RoutingMechanismFile(sourceFilePath, templatePath);

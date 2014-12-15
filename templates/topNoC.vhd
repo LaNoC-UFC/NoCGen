@@ -115,6 +115,7 @@ begin
 		variable flit_counter: integer;
 		variable timestampNet: std_logic_vector(4*TAM_FLIT-1 downto 0) := (others=>'0');
 		variable pkt_size: regflit;
+		variable control_pkt: std_logic;
 		--variable fault_bits: regphit;
 	begin
 		file_open(file_pointer,"In/in"&to_hstring(NUMBER_TO_ADDRESS(i))&".txt",READ_MODE);
@@ -161,6 +162,8 @@ begin
 			end loop;
 			
 			flit_counter := 0;
+			control_pkt := '0';
+			
 			-- leitura da linha e injetado os flits lidos
 			while (char_pointer < line_num'high) loop
 			
@@ -171,7 +174,7 @@ begin
 						timestampNet := currentTime;
 					end if;
 					
-					if (flit_counter = 1) then
+					if (flit_counter = 1 and control_pkt='0') then
 						pkt_size := CONV_VECTOR(tmp_word, char_pointer) &
 									CONV_VECTOR(tmp_word, char_pointer + 1) &
 									CONV_VECTOR(tmp_word, char_pointer + 2) &
@@ -181,13 +184,17 @@ begin
 						data_in(i) <= pkt_size;
 						char_pointer := char_pointer + 5;
 					
-					elsif (flit_counter>=9 and flit_counter<=12) then
+					elsif (flit_counter>=9 and flit_counter<=12 and control_pkt='0') then
 						data_in(i) <= timestampNet(((13-flit_counter)*TAM_FLIT-1) downto ((12-flit_counter)*TAM_FLIT));
 					else
 						data_in(i) <= CONV_VECTOR(tmp_word, char_pointer) &
 									  CONV_VECTOR(tmp_word, char_pointer + 1) &
 									  CONV_VECTOR(tmp_word, char_pointer + 2) &
 									  CONV_VECTOR(tmp_word, char_pointer + 3);
+									  
+						if (flit_counter = 0) then
+							control_pkt := CONV_VECTOR(tmp_word, char_pointer)(TAM_FLIT/4-1);
+						end if;
 								   
 						char_pointer := char_pointer + 5;
 						
@@ -226,6 +233,7 @@ begin
 		variable timeSourceNet: std_logic_vector ((TAM_FLIT*4)-1 downto 0) := (others=>'0');
 		variable timeTarget: std_logic_vector ((TAM_FLIT*4)-1 downto 0) := (others=>'0');
 		variable aux_latency: std_logic_vector ((TAM_FLIT*4)-1 downto 0) := (others=>'0'); --latência desde o tempo de criação do pacote (em decimal)
+		variable control_pkt: std_logic;
 	begin
 		if(clock(i)'event and clock(i)='0' and tx(i)='1')then
 
@@ -235,6 +243,7 @@ begin
 				write(my_output_line, string'(to_hstring(data_out(i))));
 				write(my_output_line, string'(" "));
 				cont := 1;
+				control_pkt := data_out(i)((TAM_FLIT-1));
 				
 			elsif (cont = 1) then -- tamanho
 				write(my_output_line, string'(to_hstring(data_out(i))));
@@ -247,11 +256,11 @@ begin
 			elsif (remaining_flits > 1) then
 				remaining_flits := remaining_flits - 1; -- vai sair quando remaining_flits for 0
 				
-				if (cont >= 3 and cont <= 6) then -- captura timestamp
+				if (cont >= 3 and cont <= 6 and control_pkt='0') then -- captura timestamp
 					timeSourceCore((TAM_FLIT*(7-cont)-1) downto (TAM_FLIT*(6-cont))) := data_out(i);
 				end if;
 				
-				if (cont >= 9 and cont <= 12) then -- captura timestamp
+				if (cont >= 9 and cont <= 12 and control_pkt='0') then -- captura timestamp
 					timeSourceNet((TAM_FLIT*(13-cont)-1) downto (TAM_FLIT*(12-cont))) := data_out(i);
 				end if;
 
@@ -266,29 +275,31 @@ begin
 			  --writeline(my_output, my_output_line);
 			  cont := 0;
 			  
-			  timeTarget := currentTime;
-			  for j in (TAM_FLIT/4) downto 1 loop
-			  write(my_output_line, string'(" "));
-			  write(my_output_line, string'(to_hstring(timeTarget( TAM_FLIT*j-1 downto TAM_FLIT*(j-1) ))));
-			  end loop;
-			  
-			  write(my_output_line, string'(" "));
-			  write(my_output_line, string'(integer'image(CONV_INTEGER(timeSourceCore((TAM_FLIT*2)-1 downto 0)))));
-			  
-			   write(my_output_line, string'(" "));
-			  write(my_output_line, string'(integer'image(CONV_INTEGER(timeSourceNet((TAM_FLIT*2)-1 downto 0)))));
-			  
-			  write(my_output_line, string'(" "));
-			  write(my_output_line, string'(integer'image(CONV_INTEGER(timeTarget((TAM_FLIT*2)-1 downto 0)))));
-			  
-			  write(my_output_line, string'(" "));
-			  aux_latency := (timeTarget-timeSourceCore);
-			  write(my_output_line, string'(integer'image(CONV_INTEGER(aux_latency((TAM_FLIT*2)-1 downto 0)))));
-			  
-			  write(my_output_line, string'(" "));
-			  write(my_output_line, string'("0"));
-			  
-			  writeline(my_output, my_output_line);
+				if (control_pkt='0') then
+					timeTarget := currentTime;
+					for j in (TAM_FLIT/4) downto 1 loop
+						write(my_output_line, string'(" "));
+						write(my_output_line, string'(to_hstring(timeTarget( TAM_FLIT*j-1 downto TAM_FLIT*(j-1) ))));
+					end loop;
+				  
+					write(my_output_line, string'(" "));
+					write(my_output_line, string'(integer'image(CONV_INTEGER(timeSourceCore((TAM_FLIT*2)-1 downto 0)))));
+				  
+					write(my_output_line, string'(" "));
+					write(my_output_line, string'(integer'image(CONV_INTEGER(timeSourceNet((TAM_FLIT*2)-1 downto 0)))));
+				  
+					write(my_output_line, string'(" "));
+					write(my_output_line, string'(integer'image(CONV_INTEGER(timeTarget((TAM_FLIT*2)-1 downto 0)))));
+				  
+					write(my_output_line, string'(" "));
+					aux_latency := (timeTarget-timeSourceCore);
+					write(my_output_line, string'(integer'image(CONV_INTEGER(aux_latency((TAM_FLIT*2)-1 downto 0)))));
+				  
+					write(my_output_line, string'(" "));
+					write(my_output_line, string'("0"));
+				  
+					writeline(my_output, my_output_line);
+				end if;
 			end if;
 		end if; --end if clock(i)'event...
 
