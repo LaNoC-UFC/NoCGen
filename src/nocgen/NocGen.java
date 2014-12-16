@@ -1,5 +1,6 @@
 package nocgen;
 
+import nocgen.util.DefaultParam;
 import nocgen.util.FilesNames;
 
 /**
@@ -52,6 +53,15 @@ public class NocGen implements FilesNames
 				maxRegion = new Integer(args[3]).intValue();
 				algorithmCode = args[4];
 				rbrOption = args[5];
+				break;
+				
+			case 2: //Case command line execution
+				maxX = new Integer(args[0]).intValue();
+				maxY = new Integer(args[1]).intValue();
+				sourceFilePath = DefaultParam.sourceFilePath;
+				maxRegion = DefaultParam.maxRegion;
+				algorithmCode = DefaultParam.algorithmCode;
+				rbrOption = DefaultParam.rbrOption;
 				break;
 				
 			default:
