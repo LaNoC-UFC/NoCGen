@@ -3,8 +3,11 @@ package nocgen.ui;
 //import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
 
 import javax.swing.*;
+
 import java.awt.*;
+
 import nocgen.NocGen;
+import nocgen.util.DefaultParam;
 
 /*
  * WindowPrincipal.java
@@ -85,7 +88,8 @@ public class WindowPrincipal extends javax.swing.JFrame
         // max regions objects
         maxRegionsPanel = new JPanel();
 //        spinnerModelMaxRegions = new SpinnerNumberModel(0,0,spinnerUpperBound,1);
-        spinnerModelMaxRegions = new SpinnerNumberModel(100,100,100,0);
+        //spinnerModelMaxRegions = new SpinnerNumberModel(100,100,100,0);
+        spinnerModelMaxRegions = new SpinnerNumberModel(DefaultParam.maxRegion,DefaultParam.maxRegion,DefaultParam.maxRegion,0);
         spinnerMaxRegions = new JSpinner(spinnerModelMaxRegions);              
         // menu object
         mainMenu = new JMenuBar();
@@ -155,7 +159,7 @@ public class WindowPrincipal extends javax.swing.JFrame
 //                regionBasedSelectorActionPerformed(evt);
 //            }
 //        });
-        regionBasedSelector.setSelected(true);
+        regionBasedSelector.setSelected(DefaultParam.rbrOption);
         
         GroupLayout algorithmPanelLayout = new GroupLayout(algorithmPanel);
         algorithmPanel.setLayout(algorithmPanelLayout);
@@ -300,7 +304,8 @@ public class WindowPrincipal extends javax.swing.JFrame
     	int y = (Integer)spinnerY.getValue();  // get Y size
     	int maxReg = (Integer)spinnerMaxRegions.getValue();  // get Y size
 
-    	String algorithm = (String)algorithmComboBox.getSelectedItem();
+    	//String algorithm = (String)algorithmComboBox.getSelectedItem();
+    	String algorithm = DefaultParam.algorithmCode;
     	String rbrOption;
     	if(regionBasedSelector.isSelected())
     		rbrOption = "true";

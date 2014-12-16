@@ -6,6 +6,8 @@
 package nocgen.ui;
 import javax.swing.JFileChooser;
 
+import nocgen.util.DefaultParam;
+
 @SuppressWarnings("serial")
 public class NewFileView extends javax.swing.JDialog 
 {
@@ -64,8 +66,8 @@ public class NewFileView extends javax.swing.JDialog
 
         folderPathLabel.setText("Folder Path:");
         
-        projectName.setText("Output");
-        projectFolderPath.setText(".");
+        projectName.setText(DefaultParam.projectName);
+        projectFolderPath.setText(DefaultParam.projectFolderPath);
 
         browseButton.setText("Browse");
         browseButton.addActionListener(new java.awt.event.ActionListener() {

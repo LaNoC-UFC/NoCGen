@@ -58,10 +58,10 @@ public class NocGen implements FilesNames
 			case 2: //Case command line execution
 				maxX = new Integer(args[0]).intValue();
 				maxY = new Integer(args[1]).intValue();
-				sourceFilePath = DefaultParam.sourceFilePath;
+				sourceFilePath = DefaultParam.projectFolderPath+"/"+DefaultParam.projectName;
 				maxRegion = DefaultParam.maxRegion;
 				algorithmCode = DefaultParam.algorithmCode;
-				rbrOption = DefaultParam.rbrOption;
+				rbrOption = String.valueOf(DefaultParam.rbrOption);
 				break;
 				
 			default:
