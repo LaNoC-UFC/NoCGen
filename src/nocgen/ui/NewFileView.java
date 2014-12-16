@@ -28,6 +28,7 @@ public class NewFileView extends javax.swing.JDialog
         initComponents();
         pathChooser = new JFileChooser();
         pathChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        pathChooser.setCurrentDirectory(new java.io.File("."));
     }
 
     public String getFinalPath()
@@ -62,6 +63,9 @@ public class NewFileView extends javax.swing.JDialog
         projectNameLabel.setText("Project Name:");
 
         folderPathLabel.setText("Folder Path:");
+        
+        projectName.setText("Output");
+        projectFolderPath.setText(".");
 
         browseButton.setText("Browse");
         browseButton.addActionListener(new java.awt.event.ActionListener() {
@@ -149,8 +153,8 @@ public class NewFileView extends javax.swing.JDialog
 
     private void resetTextFields()
     {
-    	projectName.setText("");
-	    projectFolderPath.setText("");
+    	projectName.setText("Output");
+	    projectFolderPath.setText(".");
     }
     
 	private void okButtonActionPerformed(java.awt.event.ActionEvent evt) 
