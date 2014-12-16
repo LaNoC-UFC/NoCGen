@@ -54,6 +54,15 @@ public class NocGen implements FilesNames
 				rbrOption = args[5];
 				break;
 				
+			case 2: //Case command line execution
+				maxX = new Integer(args[0]).intValue();
+				maxY = new Integer(args[1]).intValue();
+				sourceFilePath = "./Output";
+				maxRegion = 100;
+				algorithmCode = "XY";
+				rbrOption = "true";
+				break;
+				
 			default:
 				System.out.println("Format> java Main -dx -dy -p -a -mr");
 				System.exit(-1);
