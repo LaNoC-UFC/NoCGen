@@ -46,47 +46,11 @@ package PhoenixPackage is
 	constant TAM_BUFFER: integer := 16;
 	constant TAM_POINTER : integer range 1 to 32 := 5;
 
----------------------------------------------------------
--- CONSTANTS DEPENDENTES DO NUMERO DE ROTEADORES
----------------------------------------------------------
-	constant NROT: integer := 4;
-
-	constant MIN_X : integer := 0;
-	constant MIN_Y : integer := 0;
-	constant MAX_X : integer := 1;
-	constant MAX_Y : integer := 1;
-
----------------------------------------------------------
--- CONSTANT TB
----------------------------------------------------------
-	constant TAM_LINHA : integer := 500;
-
-	constant N0000: integer :=0;
-	constant ADDRESSN0000: std_logic_vector(7 downto 0) :="00000000";
-	constant N0100: integer :=1;
-	constant ADDRESSN0100: std_logic_vector(7 downto 0) :="00010000";
-	constant N0001: integer :=2;
-	constant ADDRESSN0001: std_logic_vector(7 downto 0) :="00000001";
-	constant N0101: integer :=3;
-	constant ADDRESSN0101: std_logic_vector(7 downto 0) :="00010001";
-
----------------------------------------------------------
--- VARIAVEIS DO NOVO HARDWARE
----------------------------------------------------------
-	subtype reg21 is std_logic_vector(20 downto 0);
-	subtype reg26 is std_logic_vector(25 downto 0);
-	--constant MEMORY_SIZE : integer := 4;
-	--type memory is array (0 to MEMORY_SIZE-1) of reg21;
-	type buffControl is array(0 to 3) of std_logic_vector((TAM_FLIT-1) downto 0);
-	type RouterControl is (invalidRegion, validRegion, faultPort, portError);
-	type ArrayRouterControl is array(NPORT downto 0) of RouterControl;
-
-	constant c_WR_ROUT_TAB : integer := 1;
-	constant c_WR_FAULT_TAB : integer := 2;
-	constant c_RD_FAULT_TAB_STEP1 : integer := 3;
-	constant c_RD_FAULT_TAB_STEP2 : integer := 4;
-	constant c_TEST_LINKS : integer := 5;
-
+?    Neste trecho é inserido as constantes que dependem do tamanho do roteador
+? como MAX_X e MAX_Y. Além disto, é inserido o endereço e posição de cada
+? roteador. Se a opção de trabalhar com regiões for selecionada deverá ser incluído
+? as novas variáveis.
+! 
 ---------------------------------------------------------
 -- SUBTIPOS, TIPOS E FUNCOES
 ---------------------------------------------------------
