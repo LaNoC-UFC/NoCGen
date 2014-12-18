@@ -21,6 +21,10 @@ end NOC;
 
 architecture NOC of NOC is
 
+	-- novos sinais--
+	signal data_inLocal: arrayNrot_regphit;
+	signal data_outLocal: arrayNrot_regphit;
+	--
 ?    Este trecho será substituído por toda arquitetura do NOC.vhd. Esta contém:
 ?  1°) Declaração de sinais (signal) auxiliares,
 ?  2°) Instanciação dos roteadores com seus respectivos sinais

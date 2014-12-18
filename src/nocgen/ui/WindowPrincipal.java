@@ -3,7 +3,6 @@ package nocgen.ui;
 //import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
 
 import javax.swing.*;
-
 import java.awt.*;
 
 import nocgen.NocGen;
