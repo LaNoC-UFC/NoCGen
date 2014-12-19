@@ -58,6 +58,7 @@ public class FileCopy
 		else
 			FileCopy.rbrOption =  false;
 		FileCopy.initialParameterSetted = true;
+		//System.out.println("FileCopy.maxX = " + maxX + " FileCopy.maxY = " + maxY);
 	}
 
 	public static String pathNameCat(String path, String name)

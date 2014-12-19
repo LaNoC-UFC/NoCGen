@@ -30,7 +30,7 @@ public class PackageFile extends FileTagCopy
 				"---------------------------------------------------------\n" +
 				"-- CONSTANT TB\n" +
 				"---------------------------------------------------------\n" +
-				"\tconstant TAM_LINHA : integer := 200;\n\n";
+				"\tconstant TAM_LINHA : integer := 500;\n\n";
 				
 				for(int y = 0; y < maxY; y++)
 				{
@@ -57,11 +57,12 @@ public class PackageFile extends FileTagCopy
 			"-- VARIAVEIS DO NOVO HARDWARE\n" +
 			"---------------------------------------------------------\n" +
 			"	subtype reg21 is std_logic_vector(20 downto 0);\n" +
-			"	constant MEMORY_SIZE : integer := " + FileCopy.regionMax + ";\n" +
-			"	type memory is array (0 to MEMORY_SIZE-1) of reg21;\n" +
-			"	type buffControl is array(0 to 2) of std_logic_vector((TAM_FLIT-1) downto 0);\n" +
+			"	subtype reg26 is std_logic_vector(25 downto 0);\n" +
+			"	--constant MEMORY_SIZE : integer := " + FileCopy.regionMax + ";\n" +
+			"	--type memory is array (0 to MEMORY_SIZE-1) of reg21;\n" +
+			"	type buffControl is array(0 to 4) of std_logic_vector((TAM_FLIT-1) downto 0);\n" +
 			"	type RouterControl is (invalidRegion, validRegion, faultPort, portError);\n" +
-			"	type ArrayRouterControl is array(NPORT downto 0) of RouterControl;\n"+
+			"	type ArrayRouterControl is array(NPORT downto 0) of RouterControl;\n\n"+
 			"	constant c_WR_ROUT_TAB : integer := 1;\n"+
 			"	constant c_WR_FAULT_TAB : integer := 2;\n"+
 			"	constant c_RD_FAULT_TAB_STEP1 : integer := 3;\n"+

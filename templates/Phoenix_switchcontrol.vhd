@@ -236,7 +236,7 @@ begin
 	end process;
 
 	------------------------------------------------------------------------------------------------------
-	-- PARTE COMBINACIONAL PARA DEFINIR O PRO“XIMO ESTADO DA MAQUINA
+	-- PARTE COMBINACIONAL PARA DEFINIR O PROXIMO ESTADO DA MAQUINA
 	--
 	-- SO -> O estado S0 eh o estado de inicializacao da maquina. Este estado somente eh	
 	--       atingido quando o sinal reset eh ativado.
