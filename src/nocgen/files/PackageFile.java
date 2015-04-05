@@ -67,7 +67,9 @@ public class PackageFile extends FileTagCopy
 			"	constant c_WR_FAULT_TAB : integer := 2;\n"+
 			"	constant c_RD_FAULT_TAB_STEP1 : integer := 3;\n"+
 			"	constant c_RD_FAULT_TAB_STEP2 : integer := 4;\n"+
-			"	constant c_TEST_LINKS : integer := 5;\n";
+			"	constant c_TEST_LINKS : integer := 5;\n"+
+			"	constant c_AUTO_FAULT_NOTIF: integer := 7;";
+
 		return str;
 	}
 }
